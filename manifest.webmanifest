@@ -2,7 +2,6 @@
   "name": "La Mine à Doum",
   "short_name": "Mine à Doum",
   "description": "Carte des équipements et du réseau électrique de la mine de Mont-Wright.",
-  "start_url": "./",
   "display": "standalone",
   "background_color": "#15171a",
   "theme_color": "#15171a",
