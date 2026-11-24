@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#15171a">
+  <meta name="color-scheme" content="dark">
+  <title>La Mine à Doum</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="La Mine à Doum">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="./maplibre-gl.css">
+  <link rel="stylesheet" href="./app.css">
+  <link rel="preload" href="./fonts/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- après une mise à jour en direct, on ne rejoue pas l'ouverture -->
+  <script>try { if (sessionStorage.getItem('trame-sans-ouverture')) { document.documentElement.classList.add('sans-ouverture'); sessionStorage.removeItem('trame-sans-ouverture'); } } catch (e) {}</script>
+</head>
+<body>
+  <!-- v4.1 : l'ouverture (la pelle creuse le nom) couvre aussi le chargement ; v4.5 : « La Mine à Doum » -->
+  <div id="ouverture" role="button" tabindex="0" aria-label="Passer l’ouverture">
+    <svg class="ouv-fosse" viewBox="0 0 390 230" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 40H58V82H112V124H160V166H230V124H278V82H332V40H390V230H0Z" fill="#202328"/>
+      <path d="M0 96H44V136H96V176H294V136H346V96H390V230H0Z" fill="#1a1c20"/>
+      <path d="M58 82H112M160 166H230M278 82H332" stroke="#F15A22" stroke-width="2" stroke-dasharray="6 6" fill="none"/>
+    </svg>
+    <div class="ouv-pelle" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ouv-degrade" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F15A22"/><stop offset="0.52" stop-color="#C84070"/><stop offset="1" stop-color="#8E3B8E"/></linearGradient></defs><path d="M3.3 18.2h8.4a1.9 1.9 0 0 1 1.9 1.9v0a1.9 1.9 0 0 1 -1.9 1.9h-8.4a1.9 1.9 0 0 1 -1.9 -1.9v0a1.9 1.9 0 0 1 1.9 -1.9ZM4.2 16.4L10.8 16.4L10.8 18.6L4.2 18.6ZM2.6 10h9.6a1 1 0 0 1 1 1v4.8a1 1 0 0 1 -1 1h-9.6a1 1 0 0 1 -1 -1v-4.8a1 1 0 0 1 1 -1ZM3.6 10.2L5 5.4L6.6 5.4L8.6 10.2ZM5.73 5.21L20.53 2.51L20.67 3.29L5.87 5.99ZM10.56 14.77L19.66 2.57L21.34 3.83L12.24 16.03ZM18.85 3.1a1.75 1.75 0 1 1 3.5 0a1.75 1.75 0 1 1 -3.5 0ZM13.09 8.3L20.09 13.2L19.11 14.6L12.11 9.7ZM21.58 4.2L21.58 13L20.83 13L20.83 4.2ZM17.4 12.4L22.7 12.6L22.2 18.7L18.4 18.9ZM22.6 13.2L23.8 14L22.5 14.8ZM22.5 15.6L23.7 16.4L22.4 17.2Z" class="p"/><path d="M10 11.3h1.8a0.4 0.4 0 0 1 0.4 0.4v1.4a0.4 0.4 0 0 1 -0.4 0.4h-1.8a0.4 0.4 0 0 1 -0.4 -0.4v-1.4a0.4 0.4 0 0 1 0.4 -0.4ZM2.75 20.1a0.85 0.85 0 1 1 1.7 0a0.85 0.85 0 1 1 -1.7 0ZM6.65 20.1a0.85 0.85 0 1 1 1.7 0a0.85 0.85 0 1 1 -1.7 0ZM10.55 20.1a0.85 0.85 0 1 1 1.7 0a0.85 0.85 0 1 1 -1.7 0Z" class="f"/></svg><span class="ouv-poussiere a"></span><span class="ouv-poussiere b"></span><span class="ouv-poussiere c"></span><span class="ouv-poussiere d"></span></div>
+    <div class="ouv-avant" aria-hidden="true">LA MINE À</div>
+    <div class="ouv-mot" aria-hidden="true"><span><span>D</span></span><span><span>O</span></span><span><span>U</span></span><span><span>M</span></span></div>
+    <div class="ouv-sous">MONT-WRIGHT · CARTE DES ÉQUIPEMENTS</div>
+    <div class="ouv-barre" aria-hidden="true"><div></div></div>
+  </div>
+
+  <div id="map"></div>
+
+  <!-- v4 : on entre par l'écran d'accueil (ce qu'on vient faire), pas par la carte -->
+  <main id="ecran" aria-label="Accueil de La Mine à Doum">
+    <div class="ecran-page">
+      <header class="ecran-tete">
+        <span class="ecran-logo" aria-hidden="true"><svg style="color:#fff;--trou:#C84070" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.3 18.2h8.4a1.9 1.9 0 0 1 1.9 1.9v0a1.9 1.9 0 0 1 -1.9 1.9h-8.4a1.9 1.9 0 0 1 -1.9 -1.9v0a1.9 1.9 0 0 1 1.9 -1.9ZM4.2 16.4L10.8 16.4L10.8 18.6L4.2 18.6ZM2.6 10h9.6a1 1 0 0 1 1 1v4.8a1 1 0 0 1 -1 1h-9.6a1 1 0 0 1 -1 -1v-4.8a1 1 0 0 1 1 -1ZM3.6 10.2L5 5.4L6.6 5.4L8.6 10.2ZM5.73 5.21L20.53 2.51L20.67 3.29L5.87 5.99ZM10.56 14.77L19.66 2.57L21.34 3.83L12.24 16.03ZM18.85 3.1a1.75 1.75 0 1 1 3.5 0a1.75 1.75 0 1 1 -3.5 0ZM13.09 8.3L20.09 13.2L19.11 14.6L12.11 9.7ZM21.58 4.2L21.58 13L20.83 13L20.83 4.2ZM17.4 12.4L22.7 12.6L22.2 18.7L18.4 18.9ZM22.6 13.2L23.8 14L22.5 14.8ZM22.5 15.6L23.7 16.4L22.4 17.2Z" class="p"/><path d="M10 11.3h1.8a0.4 0.4 0 0 1 0.4 0.4v1.4a0.4 0.4 0 0 1 -0.4 0.4h-1.8a0.4 0.4 0 0 1 -0.4 -0.4v-1.4a0.4 0.4 0 0 1 0.4 -0.4ZM2.75 20.1a0.85 0.85 0 1 1 1.7 0a0.85 0.85 0 1 1 -1.7 0ZM6.65 20.1a0.85 0.85 0 1 1 1.7 0a0.85 0.85 0 1 1 -1.7 0ZM10.55 20.1a0.85 0.85 0 1 1 1.7 0a0.85 0.85 0 1 1 -1.7 0Z" class="f"/></svg></span>
+        <div class="ecran-titres"><div class="ecran-nom">La Mine à Doum</div><div class="ecran-site">Mont-Wright · chargement…</div></div>
+      </header>
+    </div>
+  </main>
+
+  <header id="topbar">
+    <div class="brand">LA MINE À DOUM<span> Mont-Wright</span></div>
+    <div class="top-actions">
+      <button id="btn-filters" title="Filtres rapides">Filtres</button>
+      <button id="btn-basemap" title="Changer le fond de carte">Esri 2024</button>
+    </div>
+  </header>
+
+  <div id="carte-boutons">
+    <button id="btn-afficher" title="Afficher" aria-label="Choisir ce que la carte affiche"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 2.5 8 12 13l9.5-5L12 3z"/><path d="m2.5 12.5 9.5 5 9.5-5"/><path d="m2.5 17 9.5 5 9.5-5"/></svg></button>
+    <button id="btn-filtrer" data-pop="filtrer" title="Montrer seulement…" aria-label="Montrer seulement un type d’équipement"><svg class="ic" viewBox="0 0 24 24"><path d="M3.5 5h17l-6.5 7.5V19l-4 2v-8.5L3.5 5z"/></svg></button>
+    <button id="btn-lignes" data-pop="lignes" title="Lignes et routes" aria-label="Lignes électriques et routes"><svg class="ic" viewBox="0 0 24 24"><path d="M12 2.5 7.5 21.5M12 2.5l4.5 19M7 7.5h10M5.5 12.5h13M9 7.5l6.2 5M15 7.5l-6.2 5M8.6 17h6.8"/></svg></button>
+    <button id="btn-panne" title="Perte de courant" aria-label="Perte de courant"><svg class="ic" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/><path d="M3 3l18 18"/></svg></button>
+    <button id="btn-branchements" title="Branchements et ampérage" aria-label="Branchements et ampérage"><svg class="ic" viewBox="0 0 24 24"><path d="M3.8 17.5a8.6 8.6 0 1 1 16.4 0"/><path d="m12 14.2 4.2-5"/><circle cx="12" cy="14.2" r="1.5" fill="currentColor" stroke="none"/></svg></button>
+    <button id="btn-tracer" title="Tracer mon trajet" aria-label="Tracer mon trajet en véhicule"><svg class="ic" viewBox="0 0 24 24"><circle cx="5" cy="18.5" r="2.2"/><circle cx="19" cy="5.5" r="2.2"/><path d="M7 17.5c3.5-1.2 2.5-5.2 6-6.2s3.8-3.5 4.4-4.4" stroke-dasharray="2.6 2.4"/></svg></button>
+    <button id="btn-locate" title="Ma position" aria-label="Ma position"><svg class="ic" viewBox="0 0 24 24"><path d="M20.5 3.5 3 10.6l7.4 2.9 2.9 7.4 7.2-17.4z"/></svg></button>
+  </div>
+
+  <div id="presets">
+    <button class="fmenu-btn" data-fmenu="machines">Machines <span class="fm-chev">▾</span></button>
+    <button class="fmenu-btn" data-fmenu="alim">Alimentation <span class="fm-chev">▾</span></button>
+    <button class="fmenu-btn" data-fmenu="carte">Carte <span class="fm-chev">▾</span></button>
+  </div>
+  <div id="fmenu-pop" hidden>
+    <div id="fmenu-chips"></div>
+  </div>
+
+  <aside id="filterdrawer" hidden>
+    <div class="fd-head">
+      <strong>Filtres</strong>
+      <button id="fd-close" aria-label="Fermer les filtres">×</button>
+    </div>
+    <div id="filterchips"></div>
+    <button id="fd-reset">Tout afficher</button>
+  </aside>
+
+  <div id="viseur" hidden><div class="viseur-tete"><span id="viseur-pastille"></span></div><div class="viseur-tige"></div></div>
+  <div id="viseur-barre" hidden>
+    <div id="viseur-titre"></div>
+    <div class="viseur-boutons">
+      <button id="viseur-annuler">Annuler</button>
+      <button id="viseur-gps">Ma position</button>
+      <button id="viseur-ok" class="primary">Placer ici</button>
+    </div>
+  </div>
+
+  <div id="banner" hidden>
+    <span id="banner-text"></span>
+    <button id="banner-cancel">Annuler</button>
+  </div>
+
+  <button id="btn-maison" aria-label="Revenir à l’accueil"><svg class="ic" viewBox="0 0 24 24"><path d="M3.5 10.5 12 3.5l8.5 7"/><path d="M5.5 9v11h13V9"/><path d="M10 20v-6h4v6"/></svg><span>Accueil</span></button>
+
+  <div id="net-note" hidden>⚠ Hors ligne — le fond de carte peut manquer ; vos données restent utilisables.</div>
+
+  <div id="scrim" hidden></div>
+
+  <div id="radial" hidden>
+    <button class="rad rad-n" data-rad="bloc_interrupteur">Switch</button>
+    <button class="rad rad-e" data-rad="tour">Tours</button>
+    <button class="rad rad-s" data-rad="transfo_mobile">Transfos</button>
+    <button class="rad rad-w" data-rad="pompage">Pompes</button>
+    <button class="rad rad-c" data-rad="fiche">ⓘ</button>
+  </div>
+
+  <div id="radlist" hidden>
+    <div class="rl-head"><span id="rl-titre"></span><button id="rl-close" aria-label="Fermer">×</button></div>
+    <div id="rl-items"></div>
+  </div>
+
+  <section id="panel" class="feuille cran-bas" aria-label="La Mine à Doum">
+    <div class="feuille-tete" id="feuille-tete">
+      <button id="panel-grip" aria-label="Agrandir ou réduire la feuille"><span id="panel-grip-label"></span><span id="panel-grip-chev"></span></button>
+    </div>
+    <div id="panel-content" class="feuille-corps"></div>
+  </section>
+
+  <div id="sheet" hidden>
+    <button id="sheet-close-v1" aria-label="Fermer">×</button>
+    <div id="sheet-content"></div>
+  </div>
+
+  <nav id="tabs">
+    <button data-tab="recherche"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span>Recherche</span></button>
+    <button data-tab="trajet"><svg viewBox="0 0 24 24"><path d="M3 11l19-8-8 19-2-8z"/></svg><span>Trajet</span></button>
+    <button data-tab="vision" class="active"><svg viewBox="0 0 24 24"><path d="M9 3 3 5.2v15.6l6-2.2 6 2.2 6-2.2V3l-6 2.2L9 3z"/><path d="M9 3v15.6M15 5.2v15.6"/></svg><span>Vision</span></button>
+    <button data-tab="editer"><svg viewBox="0 0 24 24"><path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg><span>Éditer</span></button>
+  </nav>
+
+  <div id="toast" hidden></div>
+
+  <dialog id="dlg">
+    <form method="dialog" id="dlg-form">
+      <h3 id="dlg-title"></h3>
+      <p id="dlg-msg" hidden></p>
+      <input id="dlg-input" type="text" autocomplete="off">
+      <div class="dlg-actions">
+        <button value="cancel" type="button" id="dlg-cancel">Annuler</button>
+        <button value="ok" id="dlg-ok" type="submit">OK</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="alarme" class="alarme" aria-labelledby="alarme-titre">
+    <form method="dialog" id="alarme-form">
+      <div class="alarme-tete">
+        <span class="alarme-ic" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3.2 1.8 20.5h20.4z"/><path d="M12 9.5v5.2M12 17.4v.2"/></svg></span>
+        <div class="alarme-titres"><h3 id="alarme-titre"></h3><p id="alarme-sous" hidden></p></div>
+      </div>
+      <div id="alarme-liste" class="alarme-liste"></div>
+      <div id="alarme-protocole" class="alarme-protocole" hidden></div>
+      <div class="dlg-actions">
+        <button type="button" id="alarme-annuler">Annuler</button>
+        <button type="submit" id="alarme-ok">Continuer quand même</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="./chargeur.js" defer></script>
+</body>
+</html>
