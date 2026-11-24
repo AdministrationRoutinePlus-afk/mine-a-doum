@@ -2153,3 +2153,28 @@ button.loc-envoyer .ic, .loc-carte-boutons .ic { width: 22px; height: 22px; }
   #viseur-glissiere .loc-eq .pastille { width: 30px; height: 30px; }
   #viseur-glissiere .loc-eq .pastille .gl { width: 23px; height: 23px; }
 }
+
+
+.actions-row button:not(.primary):not(.danger), #viseur-annuler, #viseur-gps, .lien-eq {
+  color: var(--texte); background: var(--fond-2); box-shadow: inset 0 0 0 1px var(--sep);
+}
+.actions-row button:not(.primary):not(.danger) .ic, #viseur-gps .ic { color: var(--am-orange-clair); width: 18px; height: 18px; }
+#viseur-barre #viseur-annuler, #viseur-barre #viseur-gps { background: var(--fond-3); box-shadow: none; }
+.alerte-actions button { color: #fff; background: rgba(255, 255, 255, 0.12); box-shadow: none; }
+.lien-eq { font-weight: 600; }
+
+
+#viseur-glissiere { flex-wrap: nowrap; margin: -2px -14px 10px; padding: 2px 14px 2px; gap: 8px; scroll-padding: 0 14px; }
+#viseur-glissiere .loc-eq {
+  width: auto; min-height: 0; height: 46px; flex-direction: row; justify-content: flex-start; align-items: center;
+  gap: 8px; padding: 5px 14px 5px 5px; border-radius: 14px; background: var(--fond-3); box-shadow: none;
+}
+#viseur-glissiere .loc-eq .pastille { width: 36px; height: 36px; border-radius: 10px; }
+#viseur-glissiere .loc-eq .pastille .gl { width: 27px; height: 27px; }
+#viseur-glissiere .loc-eq-nom { font-size: 15px; white-space: nowrap; }
+#viseur-glissiere .loc-eq-sous { font-size: 13px; white-space: nowrap; }
+@media (max-height: 700px) {
+  #viseur-glissiere .loc-eq { width: auto; min-height: 0; height: 42px; padding: 4px 12px 4px 4px; }
+  #viseur-glissiere .loc-eq .pastille { width: 32px; height: 32px; }
+  #viseur-glissiere .loc-eq .pastille .gl { width: 24px; height: 24px; }
+}
