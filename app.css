@@ -2345,7 +2345,9 @@ body.carte-rail #rail {
   pointer-events: none;
 }
 body.carte-rail.avec-plaque #rail { top: calc(var(--plaque-bas) + 10px); max-height: calc(100dvh - var(--plaque-bas) - var(--bas) - 78px); }
-body.carte-rail #rail .rail-base, body.carte-rail #rail .rail-niveau, .rail-defile, .rail-tete, .rail-pied, .rail-tags { pointer-events: none; }
+body.carte-rail #rail .rail-niveau, .rail-tete, .rail-pied, .rail-tags { pointer-events: none; }
+
+body.carte-rail #rail .rail-base, body.carte-rail #rail .rail-defile { pointer-events: auto; touch-action: pan-y; }
 body.carte-rail #rail .rail-groupe, body.carte-rail #rail #carte-boutons, .rail-pilule, .rail-tag { pointer-events: auto; }
 body.feuille-pleine #rail, body.mode-viseur #rail, body.avec-ecran #rail { display: none !important; }
 body.carte-rail #btn-maison { display: none; }
