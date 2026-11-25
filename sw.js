@@ -14,7 +14,7 @@
 // Messages reçus : { type: 'mad-version' } → répond la version ;
 // { type: 'mad-garder', urls: [...] } → oublie les autres données gardées.
 
-const VERSION = 'mad-3137ceda1a331786';
+const VERSION = 'mad-8740b5ddba6b91da';
 const FICHIERS = ["./","index.html","app.css","apple-touch-icon.png","chargeur.js","fonts/OFL-Barlow.txt","fonts/barlow-condensed-latin-600-normal.woff2","fonts/barlow-condensed-latin-700-normal.woff2","fonts/barlow-condensed-latin-800-normal.woff2","fonts/barlow-latin-400-normal.woff2","fonts/barlow-latin-500-normal.woff2","fonts/barlow-latin-600-normal.woff2","icon-192.png","icon-512.png","icon-masque-512.png","icon.svg","manifest.webmanifest","maplibre-gl.css"];
 const DONNEES = 'mad-donnees'; // gardé d'une version à l'autre
 const DELAI_RESEAU = 6000; // réseau faible : la copie répond après 6 s, le réseau finit en arrière-plan

@@ -2178,3 +2178,43 @@ button.loc-envoyer .ic, .loc-carte-boutons .ic { width: 22px; height: 22px; }
   #viseur-glissiere .loc-eq .pastille { width: 32px; height: 32px; }
   #viseur-glissiere .loc-eq .pastille .gl { width: 24px; height: 24px; }
 }
+
+
+.secteur-pastille {
+  width: 38px; height: 38px; border-radius: 10px; flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--fond-3); background: color-mix(in srgb, var(--zc) 26%, var(--fond-3));
+  box-shadow: inset 0 0 0 2px var(--zc); color: var(--zc);
+}
+.secteur-pastille .ic { width: 20px; height: 20px; }
+.secteur-ligne .ligne-sous { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.secteur-coche { color: var(--teinte); flex: none; display: inline-flex; }
+.secteur-coche .ic { width: 20px; height: 20px; }
+.secteur-entete {
+  display: flex; align-items: center; gap: 12px; margin: 6px 0 12px; padding: 12px 12px 12px 14px;
+  border-radius: 14px; background: var(--fond-2);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--zc) 24%, var(--fond-2)), var(--fond-2) 70%);
+  box-shadow: inset 0 0 0 1.5px var(--zc);
+}
+.secteur-entete .secteur-pastille { width: 44px; height: 44px; border-radius: 12px; }
+.secteur-entete .secteur-pastille .ic { width: 24px; height: 24px; }
+.secteur-entete-textes { flex: 1; min-width: 0; }
+.secteur-entete-lib {
+  font-family: var(--police-titre); font-weight: 700; font-size: 12px; letter-spacing: 1.6px;
+  text-transform: uppercase; color: var(--zc);
+}
+.secteur-entete-nom {
+  font-family: var(--police-titre); font-weight: 800; font-size: 24px; letter-spacing: 0.6px;
+  text-transform: uppercase; line-height: 1.05; color: var(--texte);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.secteur-entete-sous { font-size: 14px; color: var(--texte-2); margin-top: 3px; line-height: 1.3; }
+.secteur-entete-bouton {
+  flex: none; min-height: 40px; padding: 6px 12px; gap: 6px; border-radius: 10px;
+  background: var(--fond-3); color: var(--texte); box-shadow: inset 0 0 0 1px var(--sep);
+  font-family: var(--police-titre); font-weight: 700; font-size: 14px; letter-spacing: 0.6px; text-transform: uppercase;
+}
+.secteur-entete-bouton .ic { width: 16px; height: 16px; color: var(--am-orange-clair); }
+#ecran .secteur-entete { margin-top: 2px; }
+.puce.secteur.ouvert { box-shadow: 0 0 0 1.5px var(--teinte); }
+.fiche-zone-nom[role="button"] { cursor: pointer; }
