@@ -2218,3 +2218,16 @@ button.loc-envoyer .ic, .loc-carte-boutons .ic { width: 22px; height: 22px; }
 #ecran .secteur-entete { margin-top: 2px; }
 .puce.secteur.ouvert { box-shadow: 0 0 0 1.5px var(--teinte); }
 .fiche-zone-nom[role="button"] { cursor: pointer; }
+
+
+.rapide-liste { margin-top: 2px; }
+.rapide-liste .loc-puces { margin-top: 4px; }
+.rapide-titre { margin-top: 8px; }
+.rapide-eq { min-height: 132px; gap: 4px; }
+.rapide-eq .pastille { margin-bottom: 2px; }
+.rapide-eq .rapide-amp { color: var(--texte); font-weight: 600; font-variant-numeric: tabular-nums; }
+.rapide-eq.libre .rapide-ou { color: var(--am-orange-clair); font-weight: 600; }
+.rapide-eq.charge { box-shadow: 0 0 0 1.5px #ff453a; }
+.rapide-eq.charge .rapide-amp { color: #ff6b61; }
+.pastille.libres { background: var(--orange, #f15a22); }
+.pastille.libres .ic { width: 14px; height: 14px; color: #fff; }
