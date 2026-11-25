@@ -2583,3 +2583,20 @@ body.invite .actions-rapides.cinq { grid-template-columns: repeat(4, minmax(0, 1
 .fiche-ident strong { font: 800 15px/1.1 var(--police-titre); letter-spacing: 0.6px; text-transform: uppercase; color: var(--orange); }
 .fiche-ident .fi-textes > span { font-size: 13px; color: var(--texte-2); }
 .fiche-ident .chevron { flex: none; width: 8px; height: 13px; color: var(--texte-3); }
+
+
+
+.pilule-groupe.seul .ic { color: var(--am-jaune, #ffd60a); }
+.puces, .loc-glissiere { user-select: none; -webkit-user-select: none; }
+.puces img, .loc-glissiere img { -webkit-user-drag: none; }
+@media (hover: hover) and (pointer: fine) {
+  .puces, .loc-glissiere { cursor: grab; }
+}
+.glisse-souris, .glisse-souris * { cursor: grabbing !important; }
+.glisse-souris { scroll-snap-type: none !important; scroll-behavior: auto !important; }
+.hc-note { margin: -2px 2px 6px; }
+.hc-sous { display: flex; align-items: center; gap: 8px; margin: 12px 4px 6px; font: 700 13px/1.2 var(--police-titre); letter-spacing: 0.6px; text-transform: uppercase; color: var(--texte-2); }
+.hc-sous .etat-point { width: 10px; height: 10px; }
+.hc-sous .hc-n { margin-left: auto; font-variant-numeric: tabular-nums; }
+.charge-pill.niv-hc { opacity: 0.5; }
+.pastille.mini.pastille-hc { background: linear-gradient(135deg, #bf5af2 50%, #a2845e 50%); }
