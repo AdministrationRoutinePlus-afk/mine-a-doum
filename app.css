@@ -2334,3 +2334,140 @@ button.loc-envoyer .ic, .loc-carte-boutons .ic { width: 22px; height: 22px; }
 .ligne-regle.rouge { color: #ff6b61; }
 #alarme.proto .dlg-actions { flex-direction: column-reverse; }
 #alarme.proto .dlg-actions button + button { border-left: 0; border-bottom: 0.5px solid var(--sep); }
+
+
+#rail { display: none; }
+body.carte-rail #rail {
+  position: fixed; z-index: 22;
+  top: calc(var(--haut) + 10px); right: calc(env(safe-area-inset-right, 0px) + 10px);
+  display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+  max-height: calc(100dvh - var(--haut) - var(--bas) - 78px);
+  pointer-events: none;
+}
+body.carte-rail.avec-plaque #rail { top: calc(var(--plaque-bas) + 10px); max-height: calc(100dvh - var(--plaque-bas) - var(--bas) - 78px); }
+body.carte-rail #rail .rail-base, body.carte-rail #rail .rail-niveau, .rail-defile, .rail-tete, .rail-pied, .rail-tags { pointer-events: none; }
+body.carte-rail #rail .rail-groupe, body.carte-rail #rail #carte-boutons, .rail-pilule, .rail-tag { pointer-events: auto; }
+body.feuille-pleine #rail, body.mode-viseur #rail, body.avec-ecran #rail { display: none !important; }
+body.carte-rail #btn-maison { display: none; }
+body.rail-seul #panel { display: none !important; }
+body.carte-rail .maplibregl-ctrl-top-left { top: 0; }
+
+.rail-base { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; min-height: 0; max-height: 100%; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; padding: 0 0 2px; }
+.rail-base::-webkit-scrollbar, .rail-defile::-webkit-scrollbar { display: none; }
+.rail-base[hidden], .rail-niveau[hidden], .rail-indice[hidden] { display: none !important; }
+.rail-groupe {
+  flex: none; display: flex; flex-direction: column; width: 64px;
+  border-radius: 18px; background: var(--materiau-fort);
+  -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: var(--ombre-bouton); overflow: hidden;
+}
+.rail-btn {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  width: 64px; min-height: 56px; padding: 6px 2px 5px; border-radius: 0;
+  background: transparent; color: var(--am-orange-clair, var(--teinte));
+}
+.rail-btn + .rail-btn { border-top: 0.5px solid var(--sep); }
+.rail-btn .ic { width: 23px; height: 23px; flex: none; }
+.rail-btn > span:not(.rail-points) { font: 700 10.5px/1.05 var(--police-titre); letter-spacing: 0.3px; text-transform: uppercase; color: var(--texte); text-align: center; }
+.rail-btn.petit { min-height: 48px; }
+.rail-btn.petit .ic { width: 21px; height: 21px; }
+.rail-btn.grand { min-height: 64px; }
+
+.rail-btn.secteurs { background: linear-gradient(165deg, rgba(255, 120, 71, 0.2), rgba(156, 92, 255, 0.16)); }
+.rail-btn.secteurs .ic { width: 27px; height: 27px; }
+.rail-btn.on { background: var(--degrade-plein); color: #fff; }
+.rail-btn.on > span:not(.rail-points) { color: #fff; }
+.rail-btn .rail-n {
+  position: absolute; top: 5px; right: 5px; min-width: 19px; height: 19px; padding: 0 5px; border-radius: 10px;
+  background: #fff; color: #15171a; font: 800 11px/19px var(--police); font-variant-numeric: tabular-nums; text-align: center;
+}
+.rail-btn .rail-n.neutre { background: var(--remplissage); color: var(--texte); }
+.rail-btn .rail-n.mot { font: 800 10px/19px var(--police-titre); letter-spacing: 0.4px; text-transform: uppercase; }
+.rail-points { display: flex; gap: 3px; height: 7px; margin-top: -1px; }
+.rail-points i { width: 7px; height: 7px; border-radius: 50%; background: var(--zc); box-shadow: 0 0 0 1.5px rgba(0, 0, 0, 0.35); }
+.rail-btn.a-envoyer::after { content: ''; position: absolute; top: 8px; right: 13px; width: 9px; height: 9px; border-radius: 50%; background: var(--orange); }
+
+body.carte-rail #rail #carte-boutons { position: static; top: auto; right: auto; flex: none; width: 64px; border-radius: 18px; }
+body.carte-rail #rail #carte-boutons button { width: 64px; height: 46px; min-height: 46px; }
+
+body.carte-rail.avec-plaque #rail .rail-compo .rail-btn:not([data-rail="accueil"]) { display: none; }
+
+
+#rail.compact .rail-btn { min-height: 44px; padding: 3px 2px; gap: 2px; }
+#rail.compact .rail-btn.grand { min-height: 50px; }
+#rail.compact .rail-btn > span:not(.rail-points) { display: none; }
+#rail.compact .rail-btn .ic { width: 22px; height: 22px; }
+#rail.compact .rail-btn.secteurs .ic { width: 25px; height: 25px; }
+#rail.compact .rail-btn .rail-n { top: 3px; right: 4px; }
+#rail.compact .rail-btn.a-envoyer::after { top: 6px; right: 12px; }
+body.carte-rail #rail.compact #carte-boutons button { height: 44px; min-height: 44px; }
+
+.rail-base.deborde-bas { -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent); }
+.rail-base.deborde-haut { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 28px); mask-image: linear-gradient(to bottom, transparent, #000 28px); }
+.rail-base.deborde-haut.deborde-bas { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 28px, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to bottom, transparent, #000 28px, #000 calc(100% - 28px), transparent); }
+
+body.carte-rail #pilules { left: calc(env(safe-area-inset-left, 0px) + 10px); right: calc(env(safe-area-inset-right, 0px) + 84px); transform: none; max-width: none; }
+.pilule .pilule-n { flex: none; margin-left: -4px; font-variant-numeric: tabular-nums; }
+.pilule .pl-court, body.carte-rail .pilule .pl-long { display: none; }
+body.carte-rail .pilule .pl-court { display: inline; }
+
+
+.rail-niveau { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; min-height: 0; max-height: 100%; }
+.rail-tete, .rail-pied { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.rail-defile {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 7px; min-height: 0;
+  overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none;
+  padding: 4px 3px 6px 8px; margin: -4px -3px -6px 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 8px, #000 calc(100% - 10px), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 8px, #000 calc(100% - 10px), transparent 100%);
+}
+.rail-pilule {
+  flex: none; display: flex; align-items: center; gap: 9px; max-width: min(74vw, 300px); min-height: 46px;
+  padding: 0 15px 0 11px; border-radius: 23px;
+  background: var(--materiau-fort); color: var(--texte);
+  -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: var(--ombre-bouton); font-size: 15.5px; font-weight: 600; text-align: left;
+}
+.rail-pilule .ic { width: 20px; height: 20px; flex: none; color: var(--am-orange-clair, var(--teinte)); }
+.rail-pilule .pastille.mini { flex: none; }
+.rail-pilule .rp-nom { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rail-pilule .rp-n { flex: none; margin-left: 2px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--texte-2); }
+.rail-pilule .chevron, .rail-pilule > .ic:last-child:not(:first-child) { width: 16px; height: 16px; margin-right: -4px; }
+.rail-pilule.on { background: var(--degrade-plein); color: #fff; }
+.rail-pilule.on .ic, .rail-pilule.on .rp-n { color: #fff; }
+.rail-pilule.vide:not(.on):not(.secteur) { opacity: 0.5; }
+.rail-pilule.discret { min-height: 40px; font-size: 14.5px; }
+.rail-pilule.tete { min-height: 46px; padding-left: 8px; font: 800 17px/1 var(--police-titre); letter-spacing: 0.6px; text-transform: uppercase; }
+.rail-pilule.tete .ic { width: 22px; height: 22px; }
+.rail-pilule.principal { background: var(--degrade-plein); color: #fff; min-height: 50px; font-weight: 700; }
+.rail-pilule.principal .ic, .rail-pilule.principal .rp-n { color: #fff; }
+
+.rail-defile > .rail-pilule, .rail-pied > .rail-pilule { width: 166px; max-width: none; padding: 6px 12px 6px 10px; }
+.rail-defile > .rail-pilule .rp-nom, .rail-pied > .rail-pilule .rp-nom { flex: 1; white-space: normal; line-height: 1.15; font-size: 14.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.rail-pilule.deux .rp-nom { -webkit-line-clamp: 3; }
+.rail-pilule .rp-nom small { display: block; margin-top: 2px; font-size: 12px; font-weight: 600; color: var(--texte-2); }
+.rail-pilule.on .rp-nom small { color: rgba(255, 255, 255, 0.88); }
+.rail-pilule.secteur.vide:not(.on) { opacity: 0.62; }
+.rail-pilule .rp-point { flex: none; width: 13px; height: 13px; border-radius: 50%; background: var(--zc); box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), 0 0 0 3px rgba(0, 0, 0, 0.25); }
+.rail-pilule.secteur.on { background: var(--zc); color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45); }
+.rail-pilule.secteur.on .rp-n { color: rgba(255, 255, 255, 0.92); }
+.rail-pilule.secteur.on .rp-point { background: #fff; box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25); }
+.rail-pilule.tete .rp-point { width: 11px; height: 11px; }
+.rail-tags { flex: none; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; max-width: 166px; }
+.rail-tag {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 0 10px; border-radius: 17px;
+  background: var(--zc); color: #fff; font-size: 14px; font-weight: 700; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--ombre-bouton);
+}
+.rail-tag .rp-point { width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+.rail-tag .x { margin-left: 2px; font-size: 17px; line-height: 1; opacity: 0.9; }
+
+.rail-indice {
+  position: absolute; top: 74px; right: 74px; width: max-content; max-width: 52vw;
+  padding: 9px 12px; border-radius: 14px; background: var(--materiau-fort); color: var(--texte);
+  -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: var(--ombre-bouton); font-size: 14px; line-height: 1.3; pointer-events: none !important;
+}
+.rail-indice b { color: var(--am-orange-clair, var(--teinte)); white-space: nowrap; }
+.rail-indice b .ic { width: 15px; height: 15px; margin: 0 3px 0 1px; vertical-align: -2.5px; }
+.rail-indice::after { content: ''; position: absolute; top: 16px; right: -6px; width: 12px; height: 12px; background: inherit; transform: rotate(45deg); border-radius: 2px; }
