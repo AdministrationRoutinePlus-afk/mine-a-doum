@@ -2231,3 +2231,61 @@ button.loc-envoyer .ic, .loc-carte-boutons .ic { width: 22px; height: 22px; }
 .rapide-eq.charge .rapide-amp { color: #ff6b61; }
 .pastille.libres { background: var(--orange, #f15a22); }
 .pastille.libres .ic { width: 14px; height: 14px; color: #fff; }
+
+
+.carres-carte { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; margin: 8px 0 2px; }
+.carre-carte {
+  position: relative; min-height: 58px; padding: 6px 2px 5px; gap: 3px; border-radius: 12px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--fond-2); color: var(--texte); box-shadow: inset 0 0 0 1px var(--sep);
+  font: 700 11.5px/1.05 var(--police-titre); letter-spacing: 0.3px; text-transform: uppercase; text-align: center;
+}
+.carre-carte .pastille.mini { width: 24px; height: 24px; border-radius: 7px; }
+.carre-carte .pastille.mini .gl { width: 19px; height: 19px; }
+.carre-carte > .ic { width: 22px; height: 22px; color: var(--am-orange-clair); }
+.carre-carte .cc-lib { display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+.carre-carte .cc-n {
+  position: absolute; top: 3px; right: 4px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px;
+  font: 700 10.5px/16px var(--police); letter-spacing: 0; color: var(--texte-2); background: var(--fond-3);
+}
+.carre-carte.on { background: var(--degrade-plein); color: #fff; box-shadow: none; }
+.carre-carte.on > .ic { color: #fff; }
+.carre-carte.on .cc-n { background: rgba(255, 255, 255, 0.24); color: #fff; }
+.carre-carte.secteurs.on { background: var(--fond-2); background: color-mix(in srgb, var(--zc, var(--teinte)) 30%, var(--fond-2)); color: var(--texte); box-shadow: inset 0 0 0 2px var(--zc, var(--teinte)); }
+.carre-carte.secteurs.on > .ic { color: var(--zc, var(--teinte)); }
+.carre-carte.secteurs.on .cc-n { background: var(--zc, var(--teinte)); color: #fff; }
+.carre-carte.vide:not(.on) { opacity: 0.5; }
+.puce.secteur-tag { --zc: var(--teinte); background: var(--fond-2); color: var(--texte); box-shadow: inset 0 0 0 1.5px var(--zc); }
+.puce.secteur-tag .x { color: var(--texte-2); }
+.secteur-point { width: 10px; height: 10px; border-radius: 50%; background: var(--zc); margin-right: 7px; flex: none; }
+.secteur-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.secteur-tag-mini {
+  min-height: 30px; padding: 3px 9px; gap: 2px; border-radius: 15px; background: var(--fond-3); color: var(--texte); white-space: nowrap;
+  box-shadow: inset 0 0 0 1.5px var(--zc); font-size: 13px; font-weight: 600;
+}
+.secteur-tag-mini .secteur-point { width: 8px; height: 8px; margin-right: 5px; }
+.secteur-entete.multi { --zc: var(--teinte); align-items: flex-start; }
+.compo-vide { margin: 8px 0 12px; padding: 16px 14px; border-radius: 16px; background: var(--fond-2); box-shadow: inset 0 0 0 1px var(--sep); }
+.compo-vide-titre { font: 800 20px/1.1 var(--police-titre); letter-spacing: 0.5px; text-transform: uppercase; }
+.compo-vide-sous { margin-top: 4px; font-size: 14.5px; color: var(--texte-2); line-height: 1.35; }
+.compo-ajouts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.compo-ajout {
+  min-height: 48px; padding: 8px 10px; gap: 8px; justify-content: flex-start; border-radius: 12px;
+  background: var(--fond-3); color: var(--texte); box-shadow: none; font-size: 15px; font-weight: 600; text-align: left;
+}
+.compo-ajout:first-child { grid-column: 1 / -1; background: var(--degrade-plein); color: #fff; }
+.compo-ajout-lib { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.compo-ajout-n { color: var(--texte-2); font-variant-numeric: tabular-nums; }
+.compo-ajout:first-child .compo-ajout-n { color: rgba(255, 255, 255, 0.85); }
+.compo-secteurs {
+  width: 100%; margin-top: 10px; min-height: 46px; gap: 8px; justify-content: flex-start; border-radius: 12px;
+  background: var(--fond-3); color: var(--texte); box-shadow: inset 0 0 0 1px var(--sep); font-size: 15px; font-weight: 600;
+}
+.compo-secteurs > .ic:first-child { color: var(--am-orange-clair); }
+.compo-secteurs .chevron, .compo-secteurs > .ic:last-child { margin-left: auto; }
+.secteurs-pied {
+  position: sticky; bottom: 0; z-index: 2; padding: 12px 0 calc(8px + env(safe-area-inset-bottom));
+  background: linear-gradient(to bottom, transparent, var(--fond) 34%);
+}
+.secteurs-pied .primary { width: 100%; min-height: 52px; gap: 8px; }
+.secteurs-pied .primary .ic { width: 20px; height: 20px; }
