@@ -2522,3 +2522,18 @@ body.invite .actions-rapides.cinq { grid-template-columns: repeat(4, minmax(0, 1
 .fil-etape { display: flex; align-items: center; padding: 7px 16px 7px 30px; font-size: 13px; color: var(--texte-2); border-top: 0.5px solid var(--sep); }
 .ss-sh.rien-dessus { flex-direction: row; align-items: center; gap: 8px; }
 .ss-rien { font-size: 13px; color: var(--texte-2); }
+
+
+.ss-tour { display: flex; flex-direction: column; gap: 6px; }
+.ss-tour-nom { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; min-height: 28px; font: 700 12.5px/1.2 var(--police-titre); letter-spacing: 1px; text-transform: uppercase; color: var(--texte-2); }
+.ss-tour-nom .pastille.mini { flex: none; }
+.ss-tour-nom .lien-eq { min-height: 26px; margin: 0; padding: 2px 8px; font: 700 13px/1.2 var(--police-titre); letter-spacing: 0.6px; }
+.ss-tour-nom .ss-rien { margin-left: 2px; text-transform: none; letter-spacing: 0; font: 400 13px/1.2 var(--police, inherit); }
+.ss-tour.sans .ss-tour-nom::before { content: ''; flex: none; width: 18px; height: 18px; margin: 0 2px; border-radius: 6px; border: 1.5px dashed var(--texte-3); }
+.ss-tour-corps { display: flex; flex-direction: column; gap: 8px; margin-left: 10px; padding-left: 12px; border-left: 2px solid rgba(220, 38, 38, 0.5); }
+.ss-tour.sans .ss-tour-corps { border-left: 2px dashed var(--texte-3); }
+.ss-sh.a-preciser .ss-sh-nom { color: var(--orange); }
+.chaine .ligne.chaine-trou { min-height: 34px; padding-top: 2px; padding-bottom: 2px; }
+.chaine-trou .ligne-sous { color: var(--orange); font-weight: 600; }
+.trou-ic { flex: none; width: 22px; height: 22px; margin: 0 9px 0 4px; border-radius: 6px; border: 1.5px dashed var(--orange); }
+.fil-trou { color: var(--orange); font-weight: 700; }
